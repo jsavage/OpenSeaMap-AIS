@@ -128,7 +128,7 @@ class OpenSeaMapAISMonitor:
                     print("→ Opening View menu...")
                 view_menu.click()
                 time.sleep(1)
-            except:
+except Exception:
                 if self.verbose:
                     print("→ View menu not found or already open")
             
