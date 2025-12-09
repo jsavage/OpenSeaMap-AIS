@@ -1,0 +1,64 @@
+name: AIS Diagnostics Tests
+
+on:
+  push:
+    branches: [ main, master ]
+    paths: [ '**.py' ]
+  pull_request:
+    paths: [ '**.py' ]
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  test-diagnostics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: Install requests and run ais_diagnostic.py
+        run: |
+          uv run --with requests -- python ais_diagnostic.py
+        # Captures output; fails if script exits non-zero
+
+      - name: Install selenium and run browser test (if exists)
+        if: hashFiles('ais_browser_test.py') != ''
+        run: |
+          uv run --with selenium -- python ais_browser_test.py
+
+  test-scripts:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: Run all Python files with uv
+        run: |
+          find . -name "*.py" -not -name "*test*" -exec uv run --with requests python {} \;
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: Lint Python files
+        run: |
+          uv tool install ruff
+          uv run ruff check .
