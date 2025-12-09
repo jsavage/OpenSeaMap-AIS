@@ -135,7 +135,7 @@ def test_aisstream_websocket() -> Tuple[bool, str]:
     """
     Test AISstream.io (modern AIS data provider with WebSocket API)
     """
-    url = "https://stream.aisstream.io/v0/stream"
+    # url = "https://stream.aisstream.io/v0/stream"   # note url not used
     
     try:
         # Just test if the endpoint exists (full WebSocket test would be more complex)
