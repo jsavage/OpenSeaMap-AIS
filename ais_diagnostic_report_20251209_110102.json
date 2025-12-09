@@ -1,0 +1,43 @@
+{
+  "timestamp": "2025-12-09T11:01:02.915666",
+  "test_results": {
+    "marinetraffic_tiles": {
+      "success": false,
+      "message": "Connection error: HTTPSConnectionPool(host='tiles.marinetraffic.com', port=443): Max retries exceeded with url: /ais_h"
+    },
+    "marinetraffic_web": {
+      "success": false,
+      "message": "HTTP 403"
+    },
+    "aishub_api": {
+      "success": false,
+      "message": "Invalid JSON response: "
+    },
+    "aisstream": {
+      "success": true,
+      "message": "AISstream.io website accessible (WebSocket API available)"
+    },
+    "github_issues": {
+      "success": true,
+      "message": "Found 2 AIS-related issues. Most recent: 'Marine Traffic (AIS) layer no longer working' (#192, open)"
+    }
+  },
+  "openseamap_endpoints": {
+    "main_page": {
+      "success": true,
+      "message": "HTTP 200"
+    },
+    "api_directory": {
+      "success": true,
+      "message": "HTTP 403"
+    },
+    "getAIS_endpoint": {
+      "success": false,
+      "message": "Error: HTTPSConnectionPool(host='map.openseamap.org', port=443): Read timed out. (read timeout=10)"
+    }
+  },
+  "recommendations": [
+    "MarineTraffic tile service is not accessible. This was the primary AIS data source. MarineTraffic has commercialized their API (requires paid subscription).",
+    "AISstream.io is accessible. This is a modern WebSocket-based AIS provider. Consider this as a potential alternative data source."
+  ]
+}

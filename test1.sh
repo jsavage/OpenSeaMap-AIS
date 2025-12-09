@@ -1,0 +1,1 @@
+uv run --with requests ais_diagnostic.py

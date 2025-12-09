@@ -1,0 +1,1 @@
+uv run --with selenium ais_browser_test.py
